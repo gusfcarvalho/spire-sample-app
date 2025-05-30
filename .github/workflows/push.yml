@@ -26,8 +26,12 @@ jobs:
 
 
       - name: Build and push Docker image
+        id: build-push
         uses: docker/build-push-action@v5
         with:
           context: .
           push: true
           tags: ghcr.io/${{ github.repository }}:latest
+      - name: print image and digest
+        run: |
+          echo "ghcr.io/${{ github.repository}}:latest@${{ steps.build-push.outputs.digest }}"
